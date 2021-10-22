@@ -1,10 +1,11 @@
-﻿using System;
+﻿using NoughtsAndCrosses.Interfaces;
+using System;
 
-namespace NoughtsAndCrosses
+namespace NoughtsAndCrosses.Services
 {
     public class GameBuilder : IGameBuilder
     {
-        private readonly IGame _game = new Game();
+        private readonly IGame _game = new Game(new GameRunner());
 
         public IGameBuilder AddPlayers()
         {

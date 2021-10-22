@@ -1,4 +1,4 @@
-﻿namespace NoughtsAndCrosses
+﻿namespace NoughtsAndCrosses.Interfaces
 {
     public interface IGameBuilder
     {

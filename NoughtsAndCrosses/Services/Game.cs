@@ -1,7 +1,8 @@
-﻿using System;
+﻿using NoughtsAndCrosses.Interfaces;
+using System;
 using System.Collections.Generic;
 
-namespace NoughtsAndCrosses
+namespace NoughtsAndCrosses.Services
 {
     public class Game : IGame
     {
@@ -9,8 +10,14 @@ namespace NoughtsAndCrosses
         private bool _isStarted = false;
         private bool _canAddPlayers = true;
         private List<Player> _players = new List<Player>();
+        private readonly IGameRunner _gameRunner;
 
         public IEnumerable<Player> Players => _players;
+
+        public Game(IGameRunner gameRunner)
+        {
+            _gameRunner = gameRunner;
+        }
 
         public void AddPlayer(string name)
         {
@@ -37,7 +44,8 @@ namespace NoughtsAndCrosses
 
             while (!_isGameOver)
             {
-                _isGameOver = true;
+                _gameRunner.ProcessTurn();
+                _isGameOver = _gameRunner.IsGameOver;
             }
         }
 
