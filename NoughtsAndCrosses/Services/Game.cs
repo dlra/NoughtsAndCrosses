@@ -10,6 +10,8 @@ namespace NoughtsAndCrosses.Services
         private bool _isStarted = false;
         private bool _canAddPlayers = true;
         private List<Player> _players = new List<Player>();
+        private Player _nextTurnPlayer;
+        private List<char> _markers = new List<char> { 'X', 'O' };
         private readonly IGameRunner _gameRunner;
 
         public IEnumerable<Player> Players => _players;
@@ -27,7 +29,9 @@ namespace NoughtsAndCrosses.Services
                 return;
             }
 
-            _players.Add(new Player { Name = name });
+            var marker = _markers[0];
+            _players.Add(new Player { Name = name, Marker = marker });
+            _markers.Remove(marker);
 
             if (_players.Count == 2) _canAddPlayers = false;
         }
@@ -44,8 +48,23 @@ namespace NoughtsAndCrosses.Services
 
             while (!_isGameOver)
             {
-                _gameRunner.ProcessTurn();
+                _gameRunner.ProcessTurn(_nextTurnPlayer);
                 _isGameOver = _gameRunner.IsGameOver;
+                SetNextTurnPlayer();
+            }
+        }
+
+        private void SetNextTurnPlayer()
+        {
+            var currentTurnPlayerIndex = _players.IndexOf(_nextTurnPlayer);
+
+            if (currentTurnPlayerIndex + 1 == _players.Count)
+            {
+                _nextTurnPlayer = _players[0];
+            }
+            else
+            {
+                _nextTurnPlayer = _players[currentTurnPlayerIndex + 1];
             }
         }
 
@@ -53,6 +72,7 @@ namespace NoughtsAndCrosses.Services
         {
             _isStarted = true;
             _canAddPlayers = false;
+            _nextTurnPlayer = _players[0];
         }
     }
 }

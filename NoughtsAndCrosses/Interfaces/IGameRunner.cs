@@ -4,6 +4,6 @@
     {
         bool IsGameOver { get; }
 
-        void ProcessTurn();
+        void ProcessTurn(Player player);
     }
 }

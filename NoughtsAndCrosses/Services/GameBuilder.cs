@@ -1,11 +1,12 @@
-﻿using NoughtsAndCrosses.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NoughtsAndCrosses.Interfaces;
 using System;
 
 namespace NoughtsAndCrosses.Services
 {
     public class GameBuilder : IGameBuilder
     {
-        private readonly IGame _game = new Game(new GameRunner());
+        private readonly IGame _game = new Game(Program.Services.GetService<IGameRunner>());
 
         public IGameBuilder AddPlayers()
         {
