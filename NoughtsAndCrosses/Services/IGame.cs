@@ -1,6 +1,6 @@
 ﻿namespace NoughtsAndCrosses
 {
-    public interface IGameRunner
+    public interface IGame
     {
         void Run();
     }

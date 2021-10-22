@@ -2,7 +2,7 @@
 
 namespace NoughtsAndCrosses
 {
-    public class GameRunner : IGameRunner
+    public class Game : IGame
     {
         public void Run()
         {

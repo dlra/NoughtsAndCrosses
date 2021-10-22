@@ -6,12 +6,12 @@ namespace NoughtsAndCrosses
     {
         private static void Main(string[] args)
         {
-            CreateGameRunner().Run();
+            CreateGameBuilder().Build().Run();
         }
 
-        private static GameRunner CreateGameRunner()
+        private static GameBuilder CreateGameBuilder()
         {
-            return new GameRunner();
+            return new GameBuilder();
         }
     }
 }
