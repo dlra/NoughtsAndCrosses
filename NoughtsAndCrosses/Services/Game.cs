@@ -4,9 +4,14 @@ namespace NoughtsAndCrosses
 {
     public class Game : IGame
     {
+        private bool _isGameOver;
+
         public void Run()
         {
-            throw new NotImplementedException();
+            while (!_isGameOver)
+            {
+                _isGameOver = true;
+            }
         }
     }
 }

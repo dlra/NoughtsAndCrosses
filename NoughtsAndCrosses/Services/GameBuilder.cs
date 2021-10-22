@@ -8,7 +8,7 @@ namespace NoughtsAndCrosses
 
         public IGame Build()
         {
-            throw new NotImplementedException();
+            return _game;
         }
     }
 }
