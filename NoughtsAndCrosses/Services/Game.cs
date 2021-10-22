@@ -27,13 +27,21 @@ namespace NoughtsAndCrosses
 
         public void Run()
         {
+            if (_players.Count != 2)
+            {
+                Console.WriteLine("Unable to proceed without two players");
+                return;
+            }
+
+            Start();
+
             while (!_isGameOver)
             {
                 _isGameOver = true;
             }
         }
 
-        public void Start()
+        private void Start()
         {
             _isStarted = true;
             _canAddPlayers = false;
