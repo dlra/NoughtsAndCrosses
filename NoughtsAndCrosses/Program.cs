@@ -11,7 +11,9 @@ namespace NoughtsAndCrosses
 
         private static void Main(string[] args)
         {
-            CreateGameBuilder().Build().Run();
+            IGameBuilder builder = CreateGameBuilder();
+            builder.AddPlayers();
+            builder.Build().Run();
         }
 
         private static GameBuilder CreateGameBuilder()

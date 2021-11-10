@@ -2,6 +2,7 @@
 {
     public interface IGameBuilder
     {
+        IGameBuilder AddPlayers();
         IGame Build();
     }
 }
