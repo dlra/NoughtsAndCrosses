@@ -12,11 +12,12 @@ namespace NoughtsAndCrosses.Services
         Dictionary<int, Player> BoardSquareSelections = new Dictionary<int, Player>();
 
         public GameRunner(IGameBoardPrinter gameBoardPrinter, IOptionsSelector optionsSelector,
-            ISelectionProcessor selectionProcessor)
+            ISelectionProcessor selectionProcessor, IGameAdjudicator gameAdjudicator)
         {
             _gamePrinter = gameBoardPrinter;
             _optionsSelector = optionsSelector;
             _selectionProcessor = selectionProcessor;
+            _gameAdjudicator = gameAdjudicator;
         }
 
         public bool IsGameOver => _gameAdjudicator.IsGameOver(BoardSquareSelections);

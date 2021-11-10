@@ -2,7 +2,7 @@
 
 namespace NoughtsAndCrosses.Interfaces
 {
-    internal interface IGameAdjudicator
+    public interface IGameAdjudicator
     {
         bool IsGameOver(Dictionary<int, Player> boardSquareSelections);
     }
