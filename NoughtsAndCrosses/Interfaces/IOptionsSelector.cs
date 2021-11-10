@@ -1,7 +1,9 @@
-﻿namespace NoughtsAndCrosses.Interfaces
+﻿using System.Collections.Generic;
+
+namespace NoughtsAndCrosses.Interfaces
 {
     public interface IOptionsSelector
     {
-        void SelectOption(Player player);
+        int SelectOption(Dictionary<int, Player> previousSelections, Player player);
     }
 }

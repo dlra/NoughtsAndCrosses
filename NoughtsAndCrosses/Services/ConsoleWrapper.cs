@@ -5,6 +5,11 @@ namespace NoughtsAndCrosses.Services
 {
     public class ConsoleWrapper : IConsole
     {
+        public string ReadLine()
+        {
+            return Console.ReadLine();
+        }
+
         public void Write(string text)
         {
             Console.Write(text);
@@ -14,5 +19,7 @@ namespace NoughtsAndCrosses.Services
         {
             Console.WriteLine(text);
         }
+
+        
     }
 }
