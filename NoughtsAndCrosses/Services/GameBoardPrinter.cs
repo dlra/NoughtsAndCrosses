@@ -6,8 +6,8 @@ namespace NoughtsAndCrosses.Services
 {
     public class GameBoardPrinter : IGameBoardPrinter
     {
-        private const int TOTAL_COLUMNS = 9;
-        private const int TOTAL_ROWS = 9;
+        private const int TOTAL_COLUMNS = 3;
+        private const int TOTAL_ROWS = 3;
         private readonly IConsole _console;
         Dictionary<int, Player> BoardSquareSelections = new Dictionary<int, Player>();
 
