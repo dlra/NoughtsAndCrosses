@@ -20,7 +20,7 @@ namespace NoughtsAndCrosses.Services
             bool isSelected = false;
             var allowedSelections = _allOptions.Except(previousSelections.Keys);
             // player given choice of options
-            _console.WriteLine("Which square would you like to play?");
+            _console.WriteLine($"{player.Name}, which square would you like to play?");
             
             while (!isSelected)
             {

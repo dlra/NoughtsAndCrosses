@@ -36,7 +36,7 @@ namespace NoughtsAndCrosses.Services
 
         public void PrintOptions(Dictionary<int, Player> previousSelections)
         {
-            _console.WriteLine("Which square would you like to play?" + Environment.NewLine);
+            _console.WriteLine("The current board options:" + Environment.NewLine);
 
             for (var row = 1; row <= TOTAL_ROWS; row++)
             {
