@@ -47,6 +47,12 @@ namespace NoughtsAndCrosses.Services
                 }
             }
 
+            if (boardSquareSelections.Count() == 9)
+            {
+                _console.WriteLine($"Game over! It's a draw!");
+                return true;
+            }
+
             return false;
         }
     }
