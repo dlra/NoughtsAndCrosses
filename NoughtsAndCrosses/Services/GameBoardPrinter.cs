@@ -6,24 +6,25 @@ namespace NoughtsAndCrosses.Services
 {
     public class GameBoardPrinter : IGameBoardPrinter
     {
+        private readonly IConsole _console;
         private const int TOTAL_COLUMNS = 3;
         private const int TOTAL_ROWS = 3;
-        private readonly IConsole _console;
-        Dictionary<int, Player> BoardSquareSelections = new Dictionary<int, Player>();
 
         public GameBoardPrinter(IConsole console)
         {
             _console = console;
         }
 
-        public void PrintBoard()
+        public void PrintBoard(Dictionary<int, Player> previousSelections)
         {
+            _console.WriteLine("The current state of play:" + Environment.NewLine);
+
             for (var row = 1; row <= TOTAL_ROWS; row++)
             {
                 for (var column = 1; column <= TOTAL_COLUMNS; column++)
                 {
                     var boardIndex = (row - 1) * TOTAL_COLUMNS + column;
-                    if (BoardSquareSelections.TryGetValue(boardIndex, out var player))
+                    if (previousSelections.TryGetValue(boardIndex, out var player))
                     {
                         _console.Write($"{player.Marker}  ");
                     }
@@ -33,14 +34,16 @@ namespace NoughtsAndCrosses.Services
             }
         }
 
-        public void PrintOptions()
+        public void PrintOptions(Dictionary<int, Player> previousSelections)
         {
+            _console.WriteLine("Which square would you like to play?" + Environment.NewLine);
+
             for (var row = 1; row <= TOTAL_ROWS; row++)
             {
                 for (var column = 1; column <= TOTAL_COLUMNS; column++)
                 {
                     var boardIndex = (row - 1) * TOTAL_COLUMNS + column;
-                    if (BoardSquareSelections.TryGetValue(boardIndex, out var player))
+                    if (previousSelections.TryGetValue(boardIndex, out var player))
                     {
                         _console.Write($"-  ");
                     }
@@ -50,21 +53,5 @@ namespace NoughtsAndCrosses.Services
             }
         }
 
-        public void ProcessSelection(Player player, int squareIndex)
-        {
-            if (squareIndex < 1 || squareIndex > TOTAL_COLUMNS * TOTAL_ROWS)
-            {
-                _console.WriteLine("Index of square is out of range.");
-                return;
-            }
-
-            if (BoardSquareSelections.ContainsKey(squareIndex))
-            {
-                _console.WriteLine("Square has already been played.");
-                return;
-            }
-
-            BoardSquareSelections.Add(squareIndex, player);
-        }
     }
 }

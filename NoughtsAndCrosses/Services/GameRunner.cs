@@ -1,4 +1,5 @@
 ﻿using NoughtsAndCrosses.Interfaces;
+using System.Collections.Generic;
 
 namespace NoughtsAndCrosses.Services
 {
@@ -6,21 +7,27 @@ namespace NoughtsAndCrosses.Services
     {
         private readonly IGameBoardPrinter _gamePrinter;
         private readonly IOptionsSelector _optionsSelector;
+        private readonly ISelectionProcessor _selectionProcessor;
+        private readonly IGameAdjudicator _gameAdjudicator;
+        Dictionary<int, Player> BoardSquareSelections = new Dictionary<int, Player>();
 
-        public GameRunner(IGameBoardPrinter gameBoardPrinter, IOptionsSelector optionsSelector)
+        public GameRunner(IGameBoardPrinter gameBoardPrinter, IOptionsSelector optionsSelector,
+            ISelectionProcessor selectionProcessor)
         {
             _gamePrinter = gameBoardPrinter;
             _optionsSelector = optionsSelector;
+            _selectionProcessor = selectionProcessor;
         }
 
-        public bool IsGameOver => throw new System.NotImplementedException();
+        public bool IsGameOver => _gameAdjudicator.IsGameOver(BoardSquareSelections);
 
         public void ProcessTurn(Player player)
         {
-            _gamePrinter.PrintBoard();
-            _gamePrinter.PrintOptions();
-            _optionsSelector.SelectOption(player);
-            _gamePrinter.PrintBoard();
+            _gamePrinter.PrintBoard(BoardSquareSelections);
+            _gamePrinter.PrintOptions(BoardSquareSelections);
+            var selection = _optionsSelector.SelectOption(BoardSquareSelections, player);
+            _selectionProcessor.ProcessSelection(BoardSquareSelections, player, selection);
+            _gamePrinter.PrintBoard(BoardSquareSelections);
         }
     }
 }

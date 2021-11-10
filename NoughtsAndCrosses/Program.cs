@@ -33,7 +33,9 @@ namespace NoughtsAndCrosses
                 services.AddTransient<IGameRunner, GameRunner>();
                 services.AddTransient<IGameBoardPrinter, GameBoardPrinter>();
                 services.AddTransient<IOptionsSelector, OptionsSelector>();
+                services.AddTransient<ISelectionProcessor, SelectionProcessor>();
                 services.AddTransient<IConsole, ConsoleWrapper>();
+                services.AddTransient<IGameAdjudicator, GameAdjudicator>();
 
                 return _services = services.BuildServiceProvider();
             }
