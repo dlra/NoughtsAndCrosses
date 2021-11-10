@@ -7,9 +7,10 @@ namespace NoughtsAndCrosses.Services
         private readonly IGameBoardPrinter _gamePrinter;
         private readonly IOptionsSelector _optionsSelector;
 
-        public GameRunner(IGameBoardPrinter gameBoardPrinter)
+        public GameRunner(IGameBoardPrinter gameBoardPrinter, IOptionsSelector optionsSelector)
         {
             _gamePrinter = gameBoardPrinter;
+            _optionsSelector = optionsSelector;
         }
 
         public bool IsGameOver => throw new System.NotImplementedException();
