@@ -58,16 +58,19 @@ namespace NoughtsAndCrosses.Test
         [Test]
         public void Cannot_Add_More_Than_Two_Players()
         {
+            //_consoleMock.Verify(m => m.);
+
             // Arrange
             var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
-            var addPlayerName = "John Player";
+            var addJohnPlayerName = "John Player";
+            var addJanePlayerName = "Jane Player";
+            
             // Act
-            game.AddPlayer(addPlayerName);
-            game.AddPlayer(addPlayerName);
+            game.AddPlayer(addJohnPlayerName);
+            game.AddPlayer(addJanePlayerName);
 
             // Assert
-            var player = game.Players.FirstOrDefault();
-            Assert.AreEqual(player.Name, addPlayerName);
+            Assert.);
         }
 
         public void Players_Have_To_Have_Different_Names()
