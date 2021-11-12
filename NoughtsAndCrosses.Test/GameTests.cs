@@ -9,18 +9,20 @@ namespace NoughtsAndCrosses.Test
     public class GameTests
     {
         private Mock<IGameRunner> _gameRunnerMock;
+        private Mock<IConsole> _consoleMock;
 
         [SetUp]
         public void Setup()
         {
             _gameRunnerMock = new Mock<IGameRunner>();
+            _consoleMock = new Mock<IConsole>();
         }
 
         [Test]
         public void Game_Runs_Successfully()
         {
             // Arrange
-            var game = new Game(_gameRunnerMock.Object);
+            var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
 
             // Assert
             Assert.DoesNotThrow(game.Run);
@@ -30,7 +32,7 @@ namespace NoughtsAndCrosses.Test
         public void Can_Add_A_Player()
         {
             // Arrange
-            var game = new Game(_gameRunnerMock.Object);
+            var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
 
             // Act
             game.AddPlayer("John Player");
@@ -43,7 +45,35 @@ namespace NoughtsAndCrosses.Test
         public void Can_Add_A_Named_Player()
         {
             // Arrange
-            var game = new Game(_gameRunnerMock.Object);
+            var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
+            var addPlayerName = "John Player";
+            // Act
+            game.AddPlayer(addPlayerName);
+
+            // Assert
+            var player = game.Players.FirstOrDefault();
+            Assert.AreEqual(player.Name, addPlayerName);
+        }
+
+        [Test]
+        public void Cannot_Add_More_Than_Two_Players()
+        {
+            // Arrange
+            var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
+            var addPlayerName = "John Player";
+            // Act
+            game.AddPlayer(addPlayerName);
+            game.AddPlayer(addPlayerName);
+
+            // Assert
+            var player = game.Players.FirstOrDefault();
+            Assert.AreEqual(player.Name, addPlayerName);
+        }
+
+        public void Players_Have_To_Have_Different_Names()
+        {
+            // Arrange
+            var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
             var addPlayerName = "John Player";
             // Act
             game.AddPlayer(addPlayerName);

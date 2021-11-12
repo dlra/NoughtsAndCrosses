@@ -5,7 +5,8 @@ namespace NoughtsAndCrosses.Services
 {
     public class GameBuilder : IGameBuilder
     {
-        private readonly IGame _game = new Game(Program.Services.GetService<IGameRunner>());
+        private readonly IGame _game = 
+            new Game(Program.Services.GetService<IGameRunner>(), Program.Services.GetService<IConsole>());
 
         public IGameBuilder AddPlayers()
         {

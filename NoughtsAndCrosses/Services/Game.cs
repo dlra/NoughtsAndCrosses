@@ -14,19 +14,21 @@ namespace NoughtsAndCrosses.Services
         private Player _nextTurnPlayer;
         private List<char> _markers = new List<char> { 'X', 'O' };
         private readonly IGameRunner _gameRunner;
+        private readonly IConsole _console;
 
         public IEnumerable<Player> Players => _players;
 
-        public Game(IGameRunner gameRunner)
+        public Game(IGameRunner gameRunner, IConsole console)
         {
             _gameRunner = gameRunner;
+            _console = console;
         }
 
         public void AddPlayer(string name)
         {
             if (!_canAddPlayers)
             {
-                Console.WriteLine("Unable to add another player.");
+                _console.WriteLine("Unable to add another player.");
                 return;
             }
 
@@ -41,7 +43,7 @@ namespace NoughtsAndCrosses.Services
         {
             if (_players.Count != NUMBER_OF_PLAYERS)
             {
-                Console.WriteLine("Unable to proceed without two players");
+                _console.WriteLine("Unable to proceed without two players");
                 return;
             }
 
