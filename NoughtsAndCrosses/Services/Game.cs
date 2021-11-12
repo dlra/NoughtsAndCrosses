@@ -11,7 +11,6 @@ namespace NoughtsAndCrosses.Services
         private bool _isGameOver = true;
         private bool _canAddPlayers = true;
         private List<Player> _players = new List<Player>();
-        private Player _nextTurnPlayer;
         private List<char> _markers = new List<char> { 'X', 'O' };
         private readonly IGameRunner _gameRunner;
         private readonly IConsole _console;
@@ -51,23 +50,9 @@ namespace NoughtsAndCrosses.Services
 
             while (!_isGameOver)
             {
-                _gameRunner.ProcessTurn(_nextTurnPlayer);
+                _gameRunner.ProcessTurn();
                 _isGameOver = _gameRunner.IsGameOver;
-                SetNextTurnPlayer();
-            }
-        }
-
-        private void SetNextTurnPlayer()
-        {
-            var currentTurnPlayerIndex = _players.IndexOf(_nextTurnPlayer);
-
-            if (currentTurnPlayerIndex + 1 == _players.Count)
-            {
-                _nextTurnPlayer = _players[0];
-            }
-            else
-            {
-                _nextTurnPlayer = _players[currentTurnPlayerIndex + 1];
+                _gameRunner.SetNextTurnPlayer();
             }
         }
 
@@ -75,7 +60,7 @@ namespace NoughtsAndCrosses.Services
         {
             _isGameOver = false;
             _canAddPlayers = false;
-            _nextTurnPlayer = _players[0];
+            _gameRunner.Initialise(_players);
         }
     }
 }
