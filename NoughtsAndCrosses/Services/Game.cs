@@ -23,7 +23,7 @@ namespace NoughtsAndCrosses.Services
             _gameRunner = gameRunner;
             _console = console;
         }
-
+        
         public void AddPlayer(string name)
         {
             if (!_canAddPlayers)

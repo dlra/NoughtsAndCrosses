@@ -1,4 +1,5 @@
 using Moq;
+using Moq.Language;
 using NoughtsAndCrosses.Interfaces;
 using NoughtsAndCrosses.Services;
 using NUnit.Framework;
@@ -51,6 +52,7 @@ namespace NoughtsAndCrosses.Test
             game.AddPlayer(addPlayerName);
 
             // Assert
+
             var player = game.Players.FirstOrDefault();
             Assert.AreEqual(player.Name, addPlayerName);
         }
@@ -58,19 +60,23 @@ namespace NoughtsAndCrosses.Test
         [Test]
         public void Cannot_Add_More_Than_Two_Players()
         {
-            //_consoleMock.Verify(m => m.);
-
             // Arrange
+            _consoleMock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
+
             var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
             var addJohnPlayerName = "John Player";
             var addJanePlayerName = "Jane Player";
-            
+            var addTonyPlayerName = "Tony Player";
+
             // Act
             game.AddPlayer(addJohnPlayerName);
             game.AddPlayer(addJanePlayerName);
+            game.AddPlayer(addTonyPlayerName);
 
             // Assert
-            Assert.);
+            _consoleMock.Verify(m =>
+                m.WriteLine("Unable to add another player."),
+                Times.Once);
         }
 
         public void Players_Have_To_Have_Different_Names()
