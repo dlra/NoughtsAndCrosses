@@ -1,5 +1,5 @@
 ﻿using NoughtsAndCrosses.Interfaces;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace NoughtsAndCrosses.Services
@@ -22,12 +22,18 @@ namespace NoughtsAndCrosses.Services
             _gameRunner = gameRunner;
             _console = console;
         }
-        
+
         public void AddPlayer(string name)
         {
             if (!_canAddPlayers)
             {
                 _console.WriteLine("Unable to add another player.");
+                return;
+            }
+
+            if (_players.Any(x => x.Name == name))
+            {
+                _console.WriteLine("Players must have different names");
                 return;
             }
 
