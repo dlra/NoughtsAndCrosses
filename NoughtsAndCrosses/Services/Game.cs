@@ -6,8 +6,9 @@ namespace NoughtsAndCrosses.Services
 {
     public class Game : IGame
     {
-        private bool _isGameOver = false;
-        private bool _isStarted = false;
+        private int NUMBER_OF_PLAYERS = 2;
+
+        private bool _isGameOver = true;
         private bool _canAddPlayers = true;
         private List<Player> _players = new List<Player>();
         private Player _nextTurnPlayer;
@@ -33,12 +34,12 @@ namespace NoughtsAndCrosses.Services
             _players.Add(new Player { Name = name, Marker = marker });
             _markers.Remove(marker);
 
-            if (_players.Count == 2) _canAddPlayers = false;
+            if (_players.Count == NUMBER_OF_PLAYERS) _canAddPlayers = false;
         }
 
         public void Run()
         {
-            if (_players.Count != 2)
+            if (_players.Count != NUMBER_OF_PLAYERS)
             {
                 Console.WriteLine("Unable to proceed without two players");
                 return;
@@ -70,7 +71,7 @@ namespace NoughtsAndCrosses.Services
 
         private void Start()
         {
-            _isStarted = true;
+            _isGameOver = false;
             _canAddPlayers = false;
             _nextTurnPlayer = _players[0];
         }
