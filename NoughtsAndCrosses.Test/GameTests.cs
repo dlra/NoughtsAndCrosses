@@ -17,6 +17,8 @@ namespace NoughtsAndCrosses.Test
         {
             _gameRunnerMock = new Mock<IGameRunner>();
             _consoleMock = new Mock<IConsole>();
+
+            _consoleMock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
         }
 
         [Test]
@@ -61,7 +63,6 @@ namespace NoughtsAndCrosses.Test
         public void Cannot_Add_More_Than_Two_Players()
         {
             // Arrange
-            _consoleMock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
 
             var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
             var addJohnPlayerName = "John Player";
@@ -79,17 +80,21 @@ namespace NoughtsAndCrosses.Test
                 Times.Once);
         }
 
+        [Test]
         public void Players_Have_To_Have_Different_Names()
         {
             // Arrange
             var game = new Game(_gameRunnerMock.Object, _consoleMock.Object);
             var addPlayerName = "John Player";
+            
             // Act
+            game.AddPlayer(addPlayerName);
             game.AddPlayer(addPlayerName);
 
             // Assert
-            var player = game.Players.FirstOrDefault();
-            Assert.AreEqual(player.Name, addPlayerName);
+            _consoleMock.Verify(m =>
+                m.WriteLine("Players must have different names"),
+                Times.Once);
         }
     }
 }
